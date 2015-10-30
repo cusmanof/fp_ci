@@ -14,13 +14,13 @@ Documentation is located at http://benedmunds.com/ion_auth/
 
 ##Installation
 Just copy the files from this package to the corresponding folder in your
-application folder.  For example, copy Ion_auth/config/ion_auth.php to
+application folder.  For example, copy ion_auth/config/ion_auth.php to
 application/config/ion_auth.php.
 
 ###CodeIgniter Version 3 Compatibility
 CodeIgniter v3 requires the class names to be ucfirst().  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks
 
-	models/ion_auth_model.php         =>   models/Ion_auth_model.php
+	models/ion_auth_model.php         =>   models/ion_auth_model.php
 	controllers/auth.php              =>   controllers/Auth.php
   
 ###Relational DB Setup

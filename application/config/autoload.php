@@ -126,4 +126,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('Freepark_model');
+$autoload['model'] = array('Freepark_model', 'ion_auth_model');
