@@ -7,8 +7,8 @@ class Calendar extends CI_Controller {
     var $yy;
     var $mm;
     var $dd;
-    var $owner;
     var $user;
+    var $bay;
 
     public function __construct() {
         parent::__construct();
@@ -23,7 +23,8 @@ class Calendar extends CI_Controller {
     }
 
     public function do_user() {
-        
+       $this->Freepark_model->reserve_available_date($this->user, $this->fullDate());
+       
     }
 
     public function do_owner() {
@@ -31,20 +32,22 @@ class Calendar extends CI_Controller {
         if (array_key_exists($this->dd, $result)) {
             $this->Freepark_model->do_release_for_owner($this->user, $this->fullDate());
         } else {
-            $this->Freepark_model->do_free_for_owner($this->user, $this->fullDate());
+            $this->Freepark_model->do_free_for_owner($this->user,
+                    $this->fullDate(),$this->bay);
         }
     }
 
     public function index() {
         $this->user = $this->ion_auth->get_user();
-        $this->owner = !empty($this->ion_auth->get_bay());
+        $this->bay = $this->ion_auth->get_bay();
+        $isOwner = !empty($this->bay);
         if ($this->uri->segment(5)) {
             //we have an update
             $this->yy = $this->uri->segment(3);
             $this->mm = $this->uri->segment(5);
             $this->dd = $this->uri->segment(6);
 
-            if ($this->owner) {
+            if ($isOwner) {
                 $this->do_owner();
             } else {
                 $this->do_user();
@@ -55,7 +58,7 @@ class Calendar extends CI_Controller {
         }
 
 
-        if ($this->owner) {
+        if ($isOwner) {
               $res = $this->Freepark_model->get_entries_for_owner($this->user, $this->partDate());
               $req = $this->Freepark_model->get_requested_dates($this->partDate());
               $result = $req + $res;
@@ -86,7 +89,7 @@ class Calendar extends CI_Controller {
 
 // Load view page
 
-        if ($this->owner) {
+        if ($isOwner) {
             $data['user'] = "Owner : " . $this->user;
             $data['isUser'] = false;
         } else {

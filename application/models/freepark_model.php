@@ -31,6 +31,7 @@ class Freepark_model extends CI_Model {
         }
         return $result;
     }
+    
      function get_entries_for_month($user,$yymm) {
         $result = array();
         $q = "SELECT * FROM freedays_tbl WHERE free_date LIKE '" . $yymm . "%'";
@@ -40,7 +41,7 @@ class Freepark_model extends CI_Model {
             if (empty($row['userId'])) {
                 $result[$dd->format('j')] = "Available";
             } else if ($user == $row['userId']) {
-                $result[$dd->format('j')] = $row['userId'];
+                $result[$dd->format('j')] = "park in\n".$row['parkId'];
             }
         }
         return $result;
@@ -56,36 +57,22 @@ class Freepark_model extends CI_Model {
         }
         return $result;
     }
-
+    function reserve_available_date($user, $yymmdd) {
+        $q = "UPDATE freedays_tbl SET userId='". $user."' WHERE free_date LIKE '" . $yymmdd . "%' AND userId = '' LIMIT 1";
+        $this->db->query($q);
+    }
+    
     function do_release_for_owner($user, $dd) {
         $q = "DELETE FROM freedays_tbl  WHERE free_date = '" . $dd . "' AND owner = '" . $user . "' AND userId=''";
-        file_put_contents("c:\\temp\\zd.txt", $q);
         $this->db->query($q);
     }
 
-    function do_free_for_owner($user, $dd) {
-        $q = "INSERT INTO freedays_tbl (owner, parkId, free_date) VALUES ('$user','123','$dd');";
-        file_put_contents("c:\\temp\\zi.txt", $q);
+    function do_free_for_owner($user, $dd, $bay) {
+        $q = "INSERT INTO freedays_tbl (owner, parkId, free_date) VALUES ('$user','$bay','$dd');";
         $this->db->query($q);
     }
 
-//    function insert_entry()
-//    {
-//        $this->title   = $_POST['title']; // please read the below note
-//        $this->content = $_POST['content'];
-//        $this->date    = time();
-//
-//        $this->db->insert('entries', $this);
-//    }
-//
-//    function update_entry()
-//    {
-//        $this->title   = $_POST['title'];
-//        $this->content = $_POST['content'];
-//        $this->date    = time();
-//
-//        $this->db->update('entries', $this, array('id' => $_POST['id']));
-//    }
+
 }
 
 ?>
