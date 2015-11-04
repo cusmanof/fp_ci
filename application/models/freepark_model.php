@@ -1,5 +1,5 @@
 <?php
-/**/
+
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
@@ -26,6 +26,20 @@ class Freepark_model extends CI_Model {
             if (empty($row['userId'])) {
                 $result[$dd->format('j')] = "Free";
             } else {
+                $result[$dd->format('j')] = $row['userId'];
+            }
+        }
+        return $result;
+    }
+     function get_entries_for_month($user,$yymm) {
+        $result = array();
+        $q = "SELECT * FROM freedays_tbl WHERE free_date LIKE '" . $yymm . "%'";
+        $query = $this->db->query($q);
+        foreach ($query->result_array() as $row) {
+            $dd = new DateTime($row['free_date']);
+            if (empty($row['userId'])) {
+                $result[$dd->format('j')] = "Available";
+            } else if ($user == $row['userId']) {
                 $result[$dd->format('j')] = $row['userId'];
             }
         }

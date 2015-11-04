@@ -60,7 +60,7 @@ class Calendar extends CI_Controller {
               $req = $this->Freepark_model->get_requested_dates($this->partDate());
               $result = $req + $res;
         } else {
-            $result = $this->Freepark_model->get_entries_for_month($this->partDate());
+            $result = $this->Freepark_model->get_entries_for_month($this->user,$this->partDate());
         }
         $data = array(
             'year' => $this->yy,
