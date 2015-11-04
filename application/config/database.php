@@ -70,7 +70,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
-$active_group = 'gae';
+$active_group = 'local';
 $query_builder = TRUE;
 
 $db['gae'] = array(
@@ -100,7 +100,7 @@ $db['local'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => 'rootmysql',
-	'database' => 'test',
+	'database' => 'freepark',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

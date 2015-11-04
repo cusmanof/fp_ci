@@ -428,7 +428,7 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
        
         $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
-        $this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
+        $this->form_validation->set_rules('bay', $this->lang->line('create_user_validation_bay_label'), 'trim');
         $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
         $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
@@ -439,9 +439,7 @@ class Auth extends CI_Controller {
             $password = $this->input->post('password');
 
             $additional_data = array(
-                'first_name' => $this->input->post('first_name'),
-                'last_name'  => $this->input->post('last_name'),
-                'company'    => $this->input->post('company'),
+                'bay'    => $this->input->post('bay'),
                 'phone'      => $this->input->post('phone'),
             );
         }
@@ -458,18 +456,6 @@ class Auth extends CI_Controller {
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-            $this->data['first_name'] = array(
-                'name'  => 'first_name',
-                'id'    => 'first_name',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('first_name'),
-            );
-            $this->data['last_name'] = array(
-                'name'  => 'last_name',
-                'id'    => 'last_name',
-                'type'  => 'text',
-                'value' => $this->form_validation->set_value('last_name'),
-            );
             $this->data['identity'] = array(
                 'name'  => 'identity',
                 'id'    => 'identity',
@@ -483,11 +469,11 @@ class Auth extends CI_Controller {
                 'type'  => 'text',
                 'value' => $this->form_validation->set_value('email'),
             );
-            $this->data['company'] = array(
-                'name'  => 'company',
-                'id'    => 'company',
+            $this->data['bay'] = array(
+                'name'  => 'bay',
+                'id'    => 'bay',
                 'type'  => 'text',
-                'value' => $this->form_validation->set_value('company'),
+                'value' => $this->form_validation->set_value('bay'),
             );
             $this->data['phone'] = array(
                 'name'  => 'phone',
@@ -540,12 +526,18 @@ class Auth extends CI_Controller {
 				$this->form_validation->set_rules('password', $this->lang->line('edit_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 				$this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
 			}
-
+                        $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
+       
+                        $this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
+                        $this->form_validation->set_rules('bay', $this->lang->line('create_user_validation_bay_label'), 'trim');
+ 
 			if ($this->form_validation->run() === TRUE)
 			{
 				$data = array(
 					'email' => $this->input->post('email'),
 					'phone' => $this->input->post('phone'),
+					'bay' => $this->input->post('bay'),
+                                    
 				);
 
 				// update the password if it was posted
@@ -629,6 +621,12 @@ class Auth extends CI_Controller {
 			'id'    => 'phone',
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('phone', $user->phone),
+		);
+                $this->data['bay'] = array(
+			'name'  => 'bay',
+			'id'    => 'bay',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('bay', $user->bay),
 		);
 		$this->data['password'] = array(
 			'name' => 'password',

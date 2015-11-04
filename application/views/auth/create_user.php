@@ -20,6 +20,16 @@
     <?php echo form_input($email); ?>
 </p>
 
+<p>
+    <?php echo "phone"; ?> <br />
+    <?php echo form_input($phone); ?>
+</p>
+
+
+<p>
+    <?php echo "bay Id if an owner"; ?> <br />
+    <?php echo form_input($bay); ?>
+</p>
 
 <p>
     <?php echo lang('create_user_password_label', 'password'); ?> <br />

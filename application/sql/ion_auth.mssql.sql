@@ -14,7 +14,7 @@ CREATE TABLE users (
     active int,
     first_name varchar(50),
     last_name varchar(50),
-    company varchar(100),
+    bay varchar(100),
     phone varchar(20),
   PRIMARY KEY(id),
   CONSTRAINT users_check_id CHECK(id >= 0),
@@ -49,7 +49,7 @@ INSERT INTO groups (id, name, description) VALUES (2,'members','General User');
 SET IDENTITY_INSERT groups OFF;
 
 SET IDENTITY_INSERT users ON;
-INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone)
+INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, bay, phone)
 	VALUES ('1','127.0.0.1','administrator','$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36','','admin@admin.com','',NULL, DATEDIFF(s, '19700101', GETDATE()), DATEDIFF(s, '19700101', GETDATE()),'1','Admin','istrator','ADMIN','0');
 SET IDENTITY_INSERT users OFF;
 

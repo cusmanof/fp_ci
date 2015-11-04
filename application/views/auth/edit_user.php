@@ -14,7 +14,12 @@
             <?php echo lang('edit_user_phone_label', 'phone');?> <br />
             <?php echo form_input($phone);?>
       </p>
-
+       
+     <p>
+            <?php echo lang('edit_user_bay_label', 'bay');?> <br />
+            <?php echo form_input($bay);?>
+      </p>
+      
       <p>
             <?php echo lang('edit_user_password_label', 'password');?> <br />
             <?php echo form_input($password);?>

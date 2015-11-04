@@ -287,7 +287,7 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function register($identity, $password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation
+        public function register($identity, $password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation
 	{
 		$this->ion_auth_model->trigger_events('pre_account_creation');
 
@@ -458,7 +458,12 @@ class Ion_auth
 		}
 		return "unknown";
 	}
-
+        
+        public function get_bay()
+	{
+            
+		return $this->session->userdata('bay');
+	}
 	/**
 	 * is_admin
 	 *

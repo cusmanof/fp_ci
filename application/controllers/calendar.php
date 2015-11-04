@@ -38,7 +38,7 @@ class Calendar extends CI_Controller {
 
     public function index() {
         $this->user = $this->ion_auth->get_user();
-        $this->owner = $this->ion_auth->in_group("owner");
+        $this->owner = !empty($this->ion_auth->get_bay());
         if ($this->uri->segment(5)) {
             //we have an update
             $this->yy = $this->uri->segment(3);
@@ -56,7 +56,7 @@ class Calendar extends CI_Controller {
         }
 
 
-        if ($this->ion_auth->in_group("owner")) {
+        if ($this->owner) {
               $res = $this->Freepark_model->get_entries_for_owner($this->user, $this->partDate());
               $req = $this->Freepark_model->get_requested_dates($this->partDate());
               $result = $req + $res;
