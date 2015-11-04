@@ -1,7 +1,7 @@
 <?php
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+
+if (!defined('BASEPATH'))   exit('No direct script access allowed');
 
 /**
  * Name:  Ion Auth Model
@@ -29,7 +29,7 @@ if (!defined('BASEPATH'))
  * Requirements: PHP5 or above
  *
  */
-class ion_auth_model extends CI_Model {
+class Ion_auth_model extends CI_Model {
 
     /**
      * Holds an array of tables used
