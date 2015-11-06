@@ -1,7 +1,6 @@
 <?php
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class Freepark_model extends CI_Model {
 
@@ -41,7 +40,12 @@ class Freepark_model extends CI_Model {
             if (empty($row['userId'])) {
                 $result[$dd->format('j')] = "Available";
             } else if ($user == $row['userId']) {
-                $result[$dd->format('j')] = "park in\n".$row['parkId'];
+                if (!empty($row['owner'])) {
+                    $res = "park in\n".$row['parkId'];
+                } else {
+                   $res = "Requested";  
+                }
+                $result[$dd->format('j')] = $res;
             }
         }
         return $result;
@@ -58,8 +62,13 @@ class Freepark_model extends CI_Model {
         return $result;
     }
     function reserve_available_date($user, $yymmdd) {
-        $q = "UPDATE freedays_tbl SET userId='". $user."' WHERE free_date LIKE '" . $yymmdd . "%' AND userId = '' LIMIT 1";
+               $q = "UPDATE freedays_tbl SET userId='". $user."' WHERE free_date LIKE '" . $yymmdd . "%' AND userId = '' LIMIT 1";
         $this->db->query($q);
+        if ($this->db->affected_rows() == 0) {
+            //add a reserve for this date
+            $q = "INSERT INTO freedays_tbl (userId, free_date) VALUES ('$user','$yymmdd');";
+            $this->db->query($q);
+        }
     }
     
     function do_release_for_owner($user, $dd) {
