@@ -39,6 +39,10 @@ class Calendar extends CI_Controller {
 
     public function index() {
         $this->user = $this->ion_auth->get_user();
+        if (empty($this->user)) {
+            redirect('auth/login');
+            return;
+        }
         $this->bay = $this->ion_auth->get_bay();
         $isOwner = !empty($this->bay);
         if ($this->uri->segment(5)) {
