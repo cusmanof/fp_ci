@@ -61,7 +61,8 @@ class Calendar extends CI_Controller {
         if ($isOwner) {
               $res = $this->Freepark_model->get_entries_for_owner($this->user, $this->partDate());
               $req = $this->Freepark_model->get_requested_dates($this->partDate());
-              $result = $req + $res;
+              //make sure req is first so overwritten by owner allocated.
+              $result = $res + $req ;
         } else {
             $result = $this->Freepark_model->get_entries_for_month($this->user,$this->partDate());
         }

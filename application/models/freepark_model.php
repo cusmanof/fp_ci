@@ -61,8 +61,9 @@ class Freepark_model extends CI_Model {
         }
         return $result;
     }
+    
     function reserve_available_date($user, $yymmdd) {
-               $q = "UPDATE freedays_tbl SET userId='". $user."' WHERE free_date LIKE '" . $yymmdd . "%' AND userId = '' LIMIT 1";
+         $q = "UPDATE freedays_tbl SET userId='". $user."' WHERE free_date LIKE '" . $yymmdd . "%' AND userId = '' LIMIT 1";
         $this->db->query($q);
         if ($this->db->affected_rows() == 0) {
             //add a reserve for this date
@@ -71,14 +72,19 @@ class Freepark_model extends CI_Model {
         }
     }
     
-    function do_release_for_owner($user, $dd) {
-        $q = "DELETE FROM freedays_tbl  WHERE free_date = '" . $dd . "' AND owner = '" . $user . "' AND userId=''";
+    function do_release_for_owner($owner, $dd) {
+        $q = "DELETE FROM freedays_tbl  WHERE free_date = '" . $dd . "' AND owner = '" . $owner . "' AND userId=''";
         $this->db->query($q);
     }
 
-    function do_free_for_owner($user, $dd, $bay) {
-        $q = "INSERT INTO freedays_tbl (owner, parkId, free_date) VALUES ('$user','$bay','$dd');";
+    function do_free_for_owner($owner, $yymmdd, $bay) {
+        //see if somebody has requested that date
+        $q = "UPDATE freedays_tbl SET owner='". $owner."', parkId='".$bay."' WHERE  owner=''  and userId !='' and free_date LIKE '" . $yymmdd . "%' LIMIT 1";
         $this->db->query($q);
+        if ($this->db->affected_rows() == 0) {        
+            $q = "INSERT INTO freedays_tbl (owner, parkId, free_date) VALUES ('$owner','$bay','$yymmdd');";
+            $this->db->query($q);
+        }
     }
 
 

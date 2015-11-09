@@ -456,7 +456,7 @@ class Ion_auth
 		{
 			return $user;
 		}
-		return "unknown";
+		return "";
 	}
         
         public function get_bay()
