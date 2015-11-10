@@ -6,8 +6,7 @@
 .calendar {
     font-family: Arial, Verdana, Sans-serif;
     width: 100%;
-    min-width: 960px;
-    border-collapse: collapse;
+    height: 100%
 }
 
 .calendar tbody tr:first-child th {
@@ -25,7 +24,8 @@
 .calendar td {
     width: 14%; /* Force all cells to be about the same width regardless of content */
     border:1px solid #CCC;
-    height: 100px;
+    height: 70px;
+    min-height: 50px;
     vertical-align: top;
     font-size: 10px;
     padding: 0;
@@ -42,8 +42,14 @@
     color: #2C2C2C;
     padding: 5px 5px 0 0;
 }
-
+.day_content {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #2C2C2C;
+    padding: 5px 5px 0 0;
+}
 div.today {
     background: #E9EFF7;
     height: 100%;
-} 
+}
