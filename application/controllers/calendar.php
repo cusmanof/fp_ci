@@ -37,6 +37,18 @@ class Calendar extends CI_Controller {
         }
     }
 
+       public function reset() {
+        $this->user = $this->ion_auth->get_user();
+        if (empty($this->user)) {
+            redirect('auth/login');
+            return;
+        }
+        $this->bay = $this->ion_auth->get_bay();
+        $isOwner = !empty($this->bay);
+        $this->Freepark_model->do_reset($this->user, $isOwner);
+        redirect('Welcome');
+       }
+    
     public function index() {
         $this->user = $this->ion_auth->get_user();
         if (empty($this->user)) {

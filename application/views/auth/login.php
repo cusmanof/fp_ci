@@ -24,3 +24,6 @@
   <p><?php echo form_submit('submit', lang('login_submit_btn'));?></p>
 
 <?php echo form_close();?>
+If you would like an account, send details to 
+<?php echo mailto('frank.cusmano@thalesgroup.com.au', 'Frank'); ?>
+

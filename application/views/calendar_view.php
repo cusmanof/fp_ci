@@ -55,6 +55,14 @@
             }
         </style>
         <script type="text/javascript">
+            function doconfirm()
+            {
+                job = confirm("Are you sure to remove your entries?");
+                if (job != true)
+                {
+                    return false;
+                }
+            }
             function tableText(tableCell) {
                 for (var i = 0; i < tableCell.childNodes.length; i++) {
                     var node = tableCell.childNodes[i];
@@ -63,7 +71,7 @@
                         var m = node.getAttribute('m');
                         var y = node.getAttribute('y');
                         var xhttp = new XMLHttpRequest();
-                        xhttp.open("GET",  "update/" + m + "/" + d, false);
+                        xhttp.open("GET", "update/" + m + "/" + d, false);
                         xhttp.send();
                         window.location.reload();
                     }
@@ -86,7 +94,7 @@
     </head>
     <body>
         <?php
-        echo '<H1 align="center">'. $user .'</H1>';
+        echo '<H1 align="center">' . $user . '</H1>';
 // Generate calendar
         $tt = str_replace('{base_url}', base_url(), $this->calendar->generate($year, $month, $content));
         $tt = str_replace('{year}', $year, $tt);
@@ -94,11 +102,14 @@
         echo $tt;
         ?>
         <br>
-           <?php 
-           echo anchor('auth/logout', 'logout');
-           if ($this->ion_auth->is_admin()) {
-               echo " | " . anchor('auth', 'admin');  
-           }
-           ?>
+        <?php
+        if ($this->ion_auth->is_admin()) {
+            echo anchor('auth', 'admin');
+        } else {
+            echo anchor('auth/change_password', 'change your password');
+        }
+        echo " | " . anchor('calendar/reset', 'Clear entries','onClick="return doconfirm();"');
+        echo " | " . anchor('auth/logout', 'logout');
+        ?>
     </body>
 </html>

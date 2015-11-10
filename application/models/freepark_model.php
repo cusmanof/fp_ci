@@ -99,7 +99,14 @@ class Freepark_model extends CI_Model {
         }
     }
 
-
+  function do_reset($user, $isOwner) {
+        if($isOwner) {             
+        $q = "DELETE FROM freedays_tbl WHERE owner = '" . $user . "' AND userId=''";
+        } else {
+        $q = "UPDATE freedays_tbl SET userId='' WHERE  userId='". $user . "'";
+        }
+        $this->db->query($q);
+    }
 }
 
 ?>
