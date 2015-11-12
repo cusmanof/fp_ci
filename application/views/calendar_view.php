@@ -47,6 +47,7 @@
                 text-align: center;
                 font-size: 16px;
                 color: #2C2C2C;
+                background: #F3F3F3;
                 padding: 5px 5px 0 0;
             }
             div.today {
@@ -104,12 +105,12 @@
         <br>
         <?php
         if ($this->ion_auth->is_admin()) {
-            echo anchor('auth', 'admin');
+            echo anchor('auth', 'Admin');
         } else {
-            echo anchor('auth/change_password', 'change your password');
+            echo anchor('auth/change_password', 'Change your password');
         }
         echo " | " . anchor('calendar/reset', 'Clear entries','onClick="return doconfirm();"');
-        echo " | " . anchor('auth/logout', 'logout');
+        echo " | " . anchor('auth/logout', 'Logout');
         ?>
     </body>
 </html>
