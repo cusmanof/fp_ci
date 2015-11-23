@@ -1,29 +1,38 @@
-<h1><?php echo lang('login_heading');?></h1>
-<p><?php echo lang('login_subheading');?></p>
+<?php $this->load->view('templates/header'); ?> 
 
-<div id="infoMessage"><?php echo $message;?></div>
+<span class="text-center">
 
-<?php echo form_open("auth/login");?>
+    <h1><?php echo lang('login_heading'); ?></h1>
 
-  <p>
-    <?php echo lang('login_identity_label', 'identity');?>
-    <?php echo form_input($identity);?>
-  </p>
-
-  <p>
-    <?php echo lang('login_password_label', 'password');?>
-    <?php echo form_input($password);?>
-  </p>
-
-  <p>
-    <?php echo lang('login_remember_label', 'remember');?>
-    <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
-  </p>
+    <p><?php echo lang('login_subheading'); ?></p>
 
 
-  <p><?php echo form_submit('submit', lang('login_submit_btn'));?></p>
+    <div id="infoMessage"><?php echo $message; ?></div>
 
-<?php echo form_close();?>
-If you would like an account, send details to 
-<?php echo mailto('frank.cusmano@thalesgroup.com.au', 'Frank'); ?>
+    <?php echo form_open("auth/login"); ?>
 
+    <p>
+        <?php echo lang('login_identity_label', 'identity'); ?>
+        <?php echo form_input($identity); ?>
+    </p>
+
+    <p>
+        <?php echo lang('login_password_label', 'password'); ?>
+        <?php echo form_input($password); ?>
+    </p>
+
+    <p>
+        <?php echo lang('login_remember_label', 'remember'); ?>
+        <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"'); ?>
+    </p>
+
+
+    <p><?php echo form_submit('submit', lang('login_submit_btn')); ?></p>
+    <?php echo form_close(); ?>
+    <p>
+        If you would like an account, send details to 
+        <?php echo mailto('frank.cusmano@thalesgroup.com.au', 'Frank'); ?> 
+    </p>
+</span>
+
+<?php $this->load->view('templates/footer'); ?> 

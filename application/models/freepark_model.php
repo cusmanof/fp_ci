@@ -53,6 +53,7 @@ class Freepark_model extends CI_Model {
     }
 
     function get_requested_dates($yymm) {
+        
         $result = array();
         $q = "SELECT * FROM freedays_tbl WHERE free_date LIKE '" . $yymm . "%' AND owner = '' and userId !=''";
         $query = $this->db->query($q);
@@ -77,7 +78,7 @@ class Freepark_model extends CI_Model {
         $this->db->query($q);
         if ($this->db->affected_rows() <> 0) {
             //released, see if anybody else wants this slot.
-            $q = "select * FROM freedays_tbl WHERE free_date = '" . $yymmdd . "' AND userId = '' AND owner <> '' LIMIT 1";
+            $q = "SELECT * FROM freedays_tbl WHERE free_date = '" . $yymmdd . "' AND userId = '' AND owner <> '' LIMIT 1";
             $query = $this->db->query($q);
             if ($query->num_rows() > 0) {
                 $row = $query->row();
@@ -89,6 +90,14 @@ class Freepark_model extends CI_Model {
             }
             return;
         }
+         $q = "SELECT * FROM freedays_tbl WHERE userId = '" . $user . "'";
+         $query = $this->db->query($q);
+         if ($query->num_rows() > 7) {
+            $message = "Sorry, you cannot reserve more than 7 bays in advance.\n" .
+                    "Buy Frank a beer and he might increase your limit.";
+            $this->session->set_flashdata('error', $message);
+             return;
+         }
         //allocate if one avail
         $q = "UPDATE freedays_tbl SET userId='" . $user . "' WHERE free_date = '" . $yymmdd . "' AND userId = '' LIMIT 1";
         $this->db->query($q);
