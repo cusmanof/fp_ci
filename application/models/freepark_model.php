@@ -39,12 +39,12 @@ class Freepark_model extends CI_Model {
         foreach ($query->result_array() as $row) {
             $dd = new DateTime($row['free_date']);
             if (empty($row['userId']) && !isset($result[$dd->format('j')])) {
-                $result[$dd->format('j')] = "Available";
+                $result[$dd->format('j')] = '<span style="color:green"><B></I>Available</B></I></span>';
             } else if ($user == $row['userId']) {
                 if (!empty($row['owner'])) {
-                    $res = "park in " . $row['parkId'] . '<BR>' . $row['owner'];
+                    $res = 'park in <span style="color:#6495ED">' . $row['parkId'] . '</span><BR>' . $row['owner'];
                 } else {
-                    $res = "Requested";
+                    $res = '<span style="color:#D2691E">Requested</span>';
                 }
                 $result[$dd->format('j')] = $res;
             }
