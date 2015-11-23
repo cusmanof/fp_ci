@@ -10,6 +10,7 @@
 
         .calendar tbody tr:first-child th {
             color: #505050;
+            text-align: center;
             margin: 0 0 10px 0;
         }
 

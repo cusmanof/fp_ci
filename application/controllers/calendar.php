@@ -95,8 +95,7 @@ class Calendar extends CI_Controller {
 	{cal_cell_content}<date d="{day}" m="{month}" y="{year}"/><span class="day_listing">{day}</span><span class="day_content">{content}</span>{/cal_cell_content}
 	{cal_cell_content_today}<date d="{day}" m="{month}" y="{year}"/><div class="today"><span class="day_listing">{day}</span><span class="day_content">{content}</span></div>{/cal_cell_content_today}
 	{cal_cell_no_content}<date d="{day}" m="{month}" y="{year}"/><span class="day_listing">{day}</span>{/cal_cell_no_content}
-	{cal_cell_no_content_today}<div class="today"><date d="{day}" m="{month}" y="{year}"/><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}
-        ';
+	{cal_cell_no_content_today}<div class="today"><date d="{day}" m="{month}" y="{year}"/><span class="day_listing">{day}</span></div>{/cal_cell_no_content_today}';
         $prefs['day_type'] = 'short';
         $prefs['show_next_prev'] = true;
         $prefs['next_prev_url'] = base_url() . 'index.php/calendar/index';

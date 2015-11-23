@@ -42,7 +42,7 @@ class Freepark_model extends CI_Model {
                 $result[$dd->format('j')] = "Available";
             } else if ($user == $row['userId']) {
                 if (!empty($row['owner'])) {
-                    $res = "park in" . $row['parkId'] . '<BR>' . $row['owner'];
+                    $res = "park in " . $row['parkId'] . '<BR>' . $row['owner'];
                 } else {
                     $res = "Requested";
                 }
@@ -93,7 +93,7 @@ class Freepark_model extends CI_Model {
          $q = "SELECT * FROM freedays_tbl WHERE userId = '" . $user . "'";
          $query = $this->db->query($q);
          if ($query->num_rows() > 7) {
-            $message = "Sorry, you cannot reserve more than 7 bays in advance.\n" .
+            $message = " Sorry, you cannot reserve more than 7 bays in advance." .
                     "Buy Frank a beer and he might increase your limit.";
             $this->session->set_flashdata('error', $message);
              return;
