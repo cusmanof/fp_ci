@@ -23,6 +23,7 @@
 
         .calendar td {
             width: 14%; /* Force all cells to be about the same width regardless of content */
+            cursor: pointer;
             border:1px solid #CCC;
             height: 70px;
             min-height: 50px;

@@ -53,7 +53,7 @@ class Freepark_model extends CI_Model {
     }
 
     function get_requested_dates($yymm) {
-        
+
         $result = array();
         $q = "SELECT * FROM freedays_tbl WHERE free_date LIKE '" . $yymm . "%' AND owner = '' and userId !=''";
         $query = $this->db->query($q);
@@ -90,14 +90,14 @@ class Freepark_model extends CI_Model {
             }
             return;
         }
-         $q = "SELECT * FROM freedays_tbl WHERE userId = '" . $user . "'";
-         $query = $this->db->query($q);
-         if ($query->num_rows() > 7) {
+        $q = "SELECT * FROM freedays_tbl WHERE userId = '" . $user . "'";
+        $query = $this->db->query($q);
+        if ($query->num_rows() > 7) {
             $message = " Sorry, you cannot reserve more than 7 bays in advance." .
                     "Buy Frank a beer and he might increase your limit.";
             $this->session->set_flashdata('error', $message);
-             return;
-         }
+            return;
+        }
         //allocate if one avail
         $q = "UPDATE freedays_tbl SET userId='" . $user . "' WHERE free_date = '" . $yymmdd . "' AND userId = '' LIMIT 1";
         $this->db->query($q);
@@ -133,6 +133,15 @@ class Freepark_model extends CI_Model {
             $q = "UPDATE freedays_tbl SET userId='' WHERE  userId='" . $user . "'";
         }
         $this->db->query($q);
+    }
+
+    function do_list_all() {
+        $tmpl = array ( 'table_open'  => '<table class="ftable">' );
+        $this->load->library('table');
+        $this->table->set_template($tmpl);
+        $q = "SELECT userId, parkId, free_date, owner FROM freedays_tbl WHERE userId<>'' ORDER BY userId, free_date ";
+        $query = $this->db->query($q);
+        return $this->table->generate($query);
     }
 
 }

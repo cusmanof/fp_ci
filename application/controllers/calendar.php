@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('BASEPATH'))  exit('No direct script access allowed');
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 class Calendar extends CI_Controller {
 
@@ -9,9 +10,17 @@ class Calendar extends CI_Controller {
     var $dd;
     var $user;
     var $bay;
+    var $isOwner;
 
     public function __construct() {
         parent::__construct();
+        $this->user = $this->ion_auth->get_user();
+        if (empty($this->user)) {
+            redirect('auth/login');
+            return;
+        }
+        $this->bay = $this->ion_auth->get_bay();
+        $this->isOwner = !empty($this->bay);
     }
 
     public function fullDate() {
@@ -23,8 +32,24 @@ class Calendar extends CI_Controller {
     }
 
     public function do_user() {
-       $this->Freepark_model->reserve_available_date($this->user, $this->fullDate());
-       
+        $this->Freepark_model->reserve_available_date($this->user, $this->fullDate());
+    }
+
+    public function all() {
+
+        if (!$this->ion_auth->is_admin()) {
+            redirect('auth/login');
+            return;
+        }
+        if ($this->isOwner) {
+            $data['user'] = "Owner : " . $this->user;
+            $data['isUser'] = false;
+        } else {
+            $data['user'] = "User : " . $this->user;
+            $data['isUser'] = true;
+        }
+        $data["table"] = $this->Freepark_model->do_list_all();
+        $this->load->view('calendar_list', $data);
     }
 
     public function do_owner() {
@@ -32,38 +57,24 @@ class Calendar extends CI_Controller {
         if (array_key_exists($this->dd, $result)) {
             $this->Freepark_model->do_release_for_owner($this->user, $this->fullDate());
         } else {
-            $this->Freepark_model->do_free_for_owner($this->user,
-                    $this->fullDate(),$this->bay);
+            $this->Freepark_model->do_free_for_owner($this->user, $this->fullDate(), $this->bay);
         }
     }
 
-       public function reset() {
-        $this->user = $this->ion_auth->get_user();
-        if (empty($this->user)) {
-            redirect('auth/login');
-            return;
-        }
-        $this->bay = $this->ion_auth->get_bay();
-        $isOwner = !empty($this->bay);
-        $this->Freepark_model->do_reset($this->user, $isOwner);
+    public function reset() {
+        $this->Freepark_model->do_reset($this->user, $this->isOwner);
         redirect('Welcome');
-       }
-    
+    }
+
     public function index() {
-        $this->user = $this->ion_auth->get_user();
-        if (empty($this->user)) {
-            redirect('auth/login');
-            return;
-        }
-        $this->bay = $this->ion_auth->get_bay();
-        $isOwner = !empty($this->bay);
+
         if ($this->uri->segment(5)) {
             //we have an update
             $this->yy = $this->uri->segment(3);
             $this->mm = $this->uri->segment(5);
             $this->dd = $this->uri->segment(6);
 
-            if ($isOwner) {
+            if ($this->isOwner) {
                 $this->do_owner();
             } else {
                 $this->do_user();
@@ -74,13 +85,13 @@ class Calendar extends CI_Controller {
         }
 
 
-        if ($isOwner) {
-              $res = $this->Freepark_model->get_entries_for_owner($this->user, $this->partDate());
-              $req = $this->Freepark_model->get_requested_dates($this->partDate());
-              //make sure req is first so overwritten by owner allocated.
-              $result = $res + $req ;
+        if ($this->isOwner) {
+            $res = $this->Freepark_model->get_entries_for_owner($this->user, $this->partDate());
+            $req = $this->Freepark_model->get_requested_dates($this->partDate());
+            //make sure req is first so overwritten by owner allocated.
+            $result = $res + $req;
         } else {
-            $result = $this->Freepark_model->get_entries_for_month($this->user,$this->partDate());
+            $result = $this->Freepark_model->get_entries_for_month($this->user, $this->partDate());
         }
         $data = array(
             'year' => $this->yy,
@@ -104,14 +115,14 @@ class Calendar extends CI_Controller {
         $this->load->library('calendar', $prefs);
 
 // Load view page
-
-        if ($isOwner) {
+ if ($this->isOwner) {
             $data['user'] = "Owner : " . $this->user;
             $data['isUser'] = false;
         } else {
             $data['user'] = "User : " . $this->user;
             $data['isUser'] = true;
         }
+
         $this->load->view('calendar_view', $data);
     }
 

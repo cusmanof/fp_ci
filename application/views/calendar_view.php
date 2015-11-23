@@ -22,6 +22,7 @@
     }
     if ($this->ion_auth->is_admin()) {
         echo ' <a href="' . site_url("auth") . '" class="btn btn-info" role="button">Admin</a>';
+        echo ' <a href="' . site_url("calendar/all") . '" class="btn btn-info" role="button">List allocations</a>';
     } else {
         echo ' <a href="' . site_url("auth/change_password") . '" class="btn btn-info" role="button">Change password</a>';
     }
