@@ -475,9 +475,9 @@ class CI_Calendar {
 		return array(
 			'table_open'				=> '<table border="0" cellpadding="4" cellspacing="0">',
 			'heading_row_start'			=> '<tr>',
-			'heading_previous_cell'		=> '<th><a href="{previous_url}">&lt;&lt; Prev</a></th>',
+			'heading_previous_cell'		=> '<th><a href="{previous_url}">Prev<br>&lt;&lt;</a></th>',
 			'heading_title_cell'		=> '<th colspan="{colspan}">{heading}</th>',
-			'heading_next_cell'			=> '<th><a href="{next_url}">Next &gt;&gt;</a></th>',
+			'heading_next_cell'			=> '<th><a href="{next_url}">Next<br>&gt;&gt;</a></th>',
 			'heading_row_end'			=> '</tr>',
 			'week_row_start'			=> '<tr>',
 			'week_day_cell'				=> '<td>{week_day}</td>',
