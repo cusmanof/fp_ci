@@ -69,8 +69,8 @@ class Calendar extends CI_Controller {
     }
 
     public function reset() {
-        $this->Freepark_model->do_reset($this->user, $this->isOwner);
-        redirect($_SERVER[HTTP_REFERER]);
+
+        redirect("Welcome");
     }
 
     public function index() {
