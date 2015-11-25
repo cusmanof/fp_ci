@@ -1,7 +1,7 @@
 <?php
 
-
-if (!defined('BASEPATH')) exit('No direct script access allowed');
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 /**
  * Name:  Ion Auth Model
@@ -661,6 +661,21 @@ class Ion_auth_model extends CI_Model {
                         ->order_by("id", "ASC")
                         ->limit(1)
                         ->count_all_results($this->tables['users']) > 0;
+    }
+
+    public function get_email($username = '') {
+        $this->trigger_events('get_email');
+
+        if (!empty($username)) {
+            $this->trigger_events('extra_where');
+
+            $res = $this->db->where('username', $username)->get($this->tables['users']);
+            $row = $res->row();
+            if (!empty($row)) {
+                return $row->email;
+            }
+        }
+        return '';
     }
 
     /**

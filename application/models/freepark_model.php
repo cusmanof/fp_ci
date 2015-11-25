@@ -3,6 +3,8 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
+use \google\appengine\api\mail\Message;
+
 class Freepark_model extends CI_Model {
 
     var $title = '';
@@ -42,7 +44,14 @@ class Freepark_model extends CI_Model {
                 $result[$dd->format('j')] = '<span style="color:green"><B></I>Free</B></I></span>';
             } else if ($user == $row['userId']) {
                 if (!empty($row['owner'])) {
-                    $res = 'park in <span style="color:#6495ED">' . $row['parkId'] . '</span><BR>' . $row['owner'];
+                    $res = 'park in <span style="color:#0000DD">' . $row['parkId'] . '</span><BR>';
+                    $email = $this->ion_auth->getEmail($row['owner']);
+                    if (!empty($email)) {
+                        $res = $res . mailto($email . '?subject= Re: parking bay: '
+                                        . $row['parkId'] . ' on ' . $row['free_date'], $row['owner']);
+                    } else {
+                        $res = $res . $row['owner'];
+                    }
                 } else {
                     $res = '<span style="color:#D2691E">Requested</span>';
                 }
@@ -92,7 +101,7 @@ class Freepark_model extends CI_Model {
         }
         $q = "SELECT * FROM freedays_tbl WHERE userId = '" . $user . "'";
         $query = $this->db->query($q);
-        if ($query->num_rows() > 7) {
+        if ($query->num_rows() >= 7) {
             $message = " Sorry, you cannot reserve more than 7 bays in advance." .
                     "Buy Frank a beer and he might increase your limit.";
             $this->session->set_flashdata('error', $message);
@@ -118,9 +127,15 @@ class Freepark_model extends CI_Model {
         if (empty($owner))
             return;
         //see if somebody has requested that date
-        $q = "UPDATE freedays_tbl SET owner='" . $owner . "', parkId='" . $bay . "' WHERE  owner=''  and userId !='' and free_date LIKE '" . $yymmdd . "%' LIMIT 1";
-        $this->db->query($q);
-        if ($this->db->affected_rows() == 0) {
+        $where = "WHERE  owner=''  and userId !='' and free_date LIKE '" . $yymmdd . "%' LIMIT 1";
+        $q = "SELECT * from freedays_tbl " . $where;
+        $res = $this->db->query($q);
+        if ($this->db->affected_rows() != 0) {
+            $q = "UPDATE freedays_tbl SET owner='" . $owner . "', parkId='" . $bay . "' " . $where;
+            $this->db->query($q);
+            $row = $row = $res->row();
+            $this->email_gotOne($row->userId, $row->parkId, $row->free_date);
+        } else {
             $q = "INSERT INTO freedays_tbl (owner, parkId, free_date) VALUES ('$owner','$bay','$yymmdd');";
             $this->db->query($q);
         }
@@ -136,12 +151,34 @@ class Freepark_model extends CI_Model {
     }
 
     function do_list_all() {
-        $tmpl = array ( 'table_open'  => '<table class="ftable">' );
+        $tmpl = array('table_open' => '<table class="ftable">');
         $this->load->library('table');
         $this->table->set_template($tmpl);
         $q = "SELECT userId, parkId, free_date, owner FROM freedays_tbl WHERE userId<>'' ORDER BY userId, free_date ";
         $query = $this->db->query($q);
         return $this->table->generate($query);
+    }
+
+    function email_gotOne($dest, $bay, $date) {
+        $email = $this->ion_auth->getEmail($dest);
+        if (!empty($email)) {
+            try {
+                $message = new Message();
+                $message->addTo($email);
+                $message->setSender('cusmanof@gmail.com');
+                $message->setSubject('Free Park allocation.');
+                $message->setTextBody('You have been allocated bay ' . $bay . ' on ' . $date);
+                $message->send();
+            } catch (Exception $e) {
+                show_error('ERROR: ' . $e);
+            }
+//            
+//            $this->eamil->from("cusmanof@gmail.com");
+//            $this->email->to($email);
+//            $this->email->subject();
+//            $this->email->message('You have been allocated bay ' . $bay . ' on ' . $date);
+//            $this->email->send();
+        }
     }
 
 }

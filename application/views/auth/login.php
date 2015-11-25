@@ -31,7 +31,13 @@
     <?php echo form_close(); ?>
     <p>
         If you would like an account, send details to 
-        <?php echo mailto('frank.cusmano@thalesgroup.com.au', 'Frank'); ?> 
+        <?php
+        echo mailto('frank.cusmano@thalesgroup.com.au?subject=Free Park account request.'
+                . '&body=Please create an account for me.'
+                . ' I would like the ID: ------%0A'
+                . 'and email address: ------', 'Frank');
+        ?> 
+
     </p>
 </span>
 

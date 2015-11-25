@@ -4,10 +4,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <meta http-equiv="refresh" content="240" />
+    <meta http-equiv="refresh" content="600" />
     <style type="text/css">
         .panel-heading {
-              text-align: center;
+            text-align: center;
         }
         .calendar {
             font-family: Arial, Verdana, Sans-serif;
@@ -86,6 +86,11 @@
             .panel-heading {
                 font-family: Arial, Verdana, Sans-serif;
                 font-size: 24px;  
+                text-align: center;
+            }
+            .alert-warning {
+                font-family: Arial, Verdana, Sans-serif;
+                font-size: 20px;  
                 text-align: center;
             }
             .calendar {

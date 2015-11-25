@@ -23,12 +23,16 @@ class Calendar extends CI_Controller {
         $this->isOwner = !empty($this->bay);
     }
 
+    private function T2($vv) {
+        return substr('00' . $vv, -2);
+    }
+
     public function fullDate() {
-        return $this->yy . "-" . $this->mm . "-" . $this->dd;
+        return $this->yy . "-" . $this->T2($this->mm) . "-" . $this->T2($this->dd);
     }
 
     public function partDate() {
-        return $this->yy . "-" . $this->mm . "-";
+        return $this->yy . "-" . $this->T2($this->mm) . "-";
     }
 
     public function do_user() {
@@ -115,7 +119,7 @@ class Calendar extends CI_Controller {
         $this->load->library('calendar', $prefs);
 
 // Load view page
- if ($this->isOwner) {
+        if ($this->isOwner) {
             $data['user'] = "Owner : " . $this->user;
             $data['isUser'] = false;
         } else {
