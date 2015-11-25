@@ -27,6 +27,7 @@
         echo ' <a href="' . site_url("calendar/all") . '" class="btn btn-primary btn-md" role="button">List allocations</a>';
     } else {
         echo ' <a href="' . site_url("auth/change_password") . '" class="btn btn-primary btn-md" role="button">Change password</a>';
+        echo ' <a href="' . site_url("calendar/all") . '" class="btn btn-primary btn-md" role="button">List allocations</a>';
     }
     echo ' <a href="' . site_url("calendar/reset") . '" onClick="return doconfirm();" class="btn btn-primary btn-md" role="button">Reset</a>';
     echo ' <a href="' . site_url("auth/logout") . '" class="btn btn-primary btn-md" role="button">Log out</a>';
@@ -34,6 +35,6 @@
     ?>
     <BR>
     <?php $this->load->view('templates/footer'); ?> 
-    
+
 </body>
 </html>

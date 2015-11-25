@@ -7,18 +7,12 @@
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/system/libraries/Calendar.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/templates/header.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/auth/login.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/templates/footer.php</file>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/calendar_list.php</file>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/system/libraries/Table.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/models/Ion_auth_model.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/calendar_view.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/config/database.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/config/autoload.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/config/config.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/app.yaml</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/system/core/Common.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/config/ion_auth.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/controllers/Calendar.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/libraries/Ion_auth.php</file>
-            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/system/libraries/Email.php</file>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/config/database.php</file>
         </group>
     </open-files>
 </project-private>

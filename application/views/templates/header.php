@@ -69,6 +69,14 @@
             h1 {
                 font-size: 56px;  
             }
+            input[type=checkbox] {
+                width: 48px;
+                height: 48px;
+                line-height: 2;
+                font-weight: bold;
+                border-radius: 3px;
+                border: 1px solid #B9B9B9;
+            }
             input {
                 height: auto;
                 width: 33%;

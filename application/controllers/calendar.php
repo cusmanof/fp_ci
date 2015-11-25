@@ -41,18 +41,21 @@ class Calendar extends CI_Controller {
 
     public function all() {
 
-        if (!$this->ion_auth->is_admin()) {
-            redirect('auth/login');
-            return;
-        }
-        if ($this->isOwner) {
-            $data['user'] = "Owner : " . $this->user;
-            $data['isUser'] = false;
+        if ($this->ion_auth->is_admin()) {
+            $data['user'] = "Admin : " . $this->user;
+            $data["table"] = $this->Freepark_model->do_list_all();
         } else {
-            $data['user'] = "User : " . $this->user;
-            $data['isUser'] = true;
+            if ($this->isOwner) {
+                $data['user'] = "Owner : " . $this->user;
+                $data['isUser'] = false;
+                $data["table"] = $this->Freepark_model->do_list_owner($this->user);
+            } else {
+                $data['user'] = "User : " . $this->user;
+                $data['isUser'] = true;
+                $data["table"] = $this->Freepark_model->do_list_user($this->user);
+            }
         }
-        $data["table"] = $this->Freepark_model->do_list_all();
+        
         $this->load->view('calendar_list', $data);
     }
 

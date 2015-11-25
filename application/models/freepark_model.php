@@ -46,12 +46,12 @@ class Freepark_model extends CI_Model {
                 if (!empty($row['owner'])) {
                     $res = 'park in <span style="color:#0000DD">' . $row['parkId'] . '</span><BR>';
                     $email = $this->ion_auth->getEmail($row['owner']);
-                    if (!empty($email)) {
-                        $res = $res . mailto($email . '?subject= Re: parking bay: '
-                                        . $row['parkId'] . ' on ' . $row['free_date'], $row['owner']);
-                    } else {
-                        $res = $res . $row['owner'];
-                    }
+//                    if (!empty($email)) {
+//                        $res = $res . mailto($email . '?subject= Re: parking bay: '
+//                                        . $row['parkId'] . ' on ' . $row['free_date'], $row['owner']);
+//                    } else {
+                    $res = $res . $row['owner'];
+//                    }
                 } else {
                     $res = '<span style="color:#D2691E">Requested</span>';
                 }
@@ -134,7 +134,7 @@ class Freepark_model extends CI_Model {
             $q = "UPDATE freedays_tbl SET owner='" . $owner . "', parkId='" . $bay . "' " . $where;
             $this->db->query($q);
             $row = $row = $res->row();
-            $this->email_gotOne($row->userId, $row->parkId, $row->free_date);
+            $this->email_gotOne($row->userId, $owner, $bay, $row->free_date);
         } else {
             $q = "INSERT INTO freedays_tbl (owner, parkId, free_date) VALUES ('$owner','$bay','$yymmdd');";
             $this->db->query($q);
@@ -159,7 +159,75 @@ class Freepark_model extends CI_Model {
         return $this->table->generate($query);
     }
 
-    function email_gotOne($dest, $bay, $date) {
+    function do_list_user($user) {
+        $res = array();
+        $tmpl = array('table_open' => '<table class="ftable">');
+        $this->load->library('table');
+        $this->table->set_template($tmpl);
+        $q = "SELECT userId, parkId, free_date, owner FROM freedays_tbl WHERE userId = '" . $user . "' ORDER BY  free_date";
+        $query = $this->db->query($q);
+        $h = array(
+            "0" => 'User',
+            "1" => 'Bay',
+            "2" => 'Date',
+            "3" => 'Owner'
+        );
+        array_push($res, $h);
+        foreach ($query->result() as $row) {
+            $oo = $row->owner;
+            if (!empty($oo)) {
+                $email = $this->ion_auth->getEmail($oo);
+                if (!empty($email)) {
+                    $oo = mailto($email . '?subject= Re: parking bay: '
+                            . $row->parkId . ' on ' . $row->free_date, $oo);
+                }
+            }
+            $r = array(
+                "0" => $row->userId,
+                "1" => $row->parkId,
+                "2" => $row->free_date,
+                "3" => $oo
+            );
+            array_push($res, $r);
+        }
+        return $this->table->generate($res);
+    }
+
+    function do_list_owner($user) {
+        $res = array();
+        $tmpl = array('table_open' => '<table class="ftable">');
+        $this->load->library('table');
+        $this->table->set_template($tmpl);
+        $q = "SELECT owner, parkId, free_date, userId FROM freedays_tbl WHERE owner = '" . $user . "' ORDER BY free_date";
+        $query = $this->db->query($q);
+        $h = array(
+            "0" => 'Owner',
+            "1" => 'Bay',
+            "2" => 'Date',
+            "3" => 'User'
+        );
+        array_push($res, $h);
+        foreach ($query->result() as $row) {
+            $oo = $row->userId;
+            if (!empty($oo)) {
+                $email = $this->ion_auth->getEmail($oo);
+                if (!empty($email)) {
+                    $oo = mailto($email . '?subject= Re: parking bay: '
+                            . $row->parkId . ' on ' . $row->free_date, $oo);
+                }
+            }
+            $r = array(
+                "0" => $row->owner,
+                "1" => $row->parkId,
+                "2" => $row->free_date,
+                "3" => $oo
+            );
+            array_push($res, $r);
+        }
+        return $this->table->generate($res);
+    }
+
+    function email_gotOne($dest, $owner, $bay, $date) {
         $email = $this->ion_auth->getEmail($dest);
         if (!empty($email)) {
             try {
@@ -168,12 +236,11 @@ class Freepark_model extends CI_Model {
                 $message->setSender('cusmanof@gmail.com');
                 $message->setSubject('Free Park allocation.');
                 $message->setTextBody('Your request for a parking bay on '
-                        . $date  .' have been filled. Use bay ' . $bay );
+                        . $date . ' have been filled by ' . $owner . '. Use bay ' . $bay);
                 $message->send();
             } catch (Exception $e) {
                 show_error('ERROR: ' . $e);
             }
-
         }
     }
 
