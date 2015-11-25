@@ -167,17 +167,13 @@ class Freepark_model extends CI_Model {
                 $message->addTo($email);
                 $message->setSender('cusmanof@gmail.com');
                 $message->setSubject('Free Park allocation.');
-                $message->setTextBody('You have been allocated bay ' . $bay . ' on ' . $date);
+                $message->setTextBody('Your request for a parking bay on '
+                        . $date  .' have been filled. Use bay ' . $bay );
                 $message->send();
             } catch (Exception $e) {
                 show_error('ERROR: ' . $e);
             }
-//            
-//            $this->eamil->from("cusmanof@gmail.com");
-//            $this->email->to($email);
-//            $this->email->subject();
-//            $this->email->message('You have been allocated bay ' . $bay . ' on ' . $date);
-//            $this->email->send();
+
         }
     }
 
