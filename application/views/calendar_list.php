@@ -45,7 +45,6 @@
                 border-collapse: collapse; 
                 width: 90%; 
                 border-spacing: 0; 
-
             }
 
             td, th { border: 1px solid #CCC; height: 30px;} /* Make cells a bit taller */
@@ -54,13 +53,13 @@
                 background: #F3F3F3; /* Light grey background */
                 font-weight: bold; /* Make sure they're bold */
                 text-align: center; /* Center our text */
-                 font-size: 38px;
+                font-size: 38px;
             }
 
             td {
                 background: #FAFAFA; /* Lighter grey background */
                 text-align: center; /* Center our text */
-                 font-size: 38px;
+                font-size: 38px;
             }
 
             .copyright {
@@ -137,17 +136,18 @@
                 background: #E9EFF7;
                 height: 100%;
             }
-        </style>
+        }
+    </style>
 
 
-        <?php
-        echo '<H1 align="center">' . $user . '</H1>';
-        echo '<div style="text-align:center;">';
-        echo $table;
-        echo '</div>';
-        ?>
-        <BR>
-        <?php $this->load->view('templates/footer'); ?> 
+    <?php
+    echo '<H1 align="center">' . $user . '</H1>';
+    echo '<div style="text-align:center;">';
+    echo $table;
+    echo '</div>';
+    ?>
+    <BR>
+    <?php $this->load->view('templates/footer_dates'); ?> 
 
-    </body>
+</body>
 </html>

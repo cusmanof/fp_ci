@@ -21,20 +21,9 @@
         echo $this->session->flashdata('error');
         echo '</div>';
     }
-    echo '<p>';
-    if ($this->ion_auth->is_admin()) {
-        echo ' <a href="' . site_url("auth") . '" class="btn btn-primary btn-md" role="button">Admin</a>';
-        echo ' <a href="' . site_url("calendar/all") . '" class="btn btn-primary btn-md" role="button">List allocations</a>';
-    } else {
-        echo ' <a href="' . site_url("auth/change_password") . '" class="btn btn-primary btn-md" role="button">Change password</a>';
-        echo ' <a href="' . site_url("calendar/all") . '" class="btn btn-primary btn-md" role="button">List allocations</a>';
-    }
-    echo ' <a href="' . site_url("calendar/reset") . '" onClick="return doconfirm();" class="btn btn-primary btn-md" role="button">Reset</a>';
-    echo ' <a href="' . site_url("auth/logout") . '" class="btn btn-primary btn-md" role="button">Log out</a>';
-    echo '</div>'
     ?>
     <BR>
-    <?php $this->load->view('templates/footer'); ?> 
+    <?php $this->load->view('templates/footer_list'); ?> 
 
 </body>
 </html>

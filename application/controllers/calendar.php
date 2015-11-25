@@ -55,7 +55,7 @@ class Calendar extends CI_Controller {
                 $data["table"] = $this->Freepark_model->do_list_user($this->user);
             }
         }
-        
+
         $this->load->view('calendar_list', $data);
     }
 
@@ -70,7 +70,7 @@ class Calendar extends CI_Controller {
 
     public function reset() {
         $this->Freepark_model->do_reset($this->user, $this->isOwner);
-        redirect('Welcome');
+        redirect($_SERVER[HTTP_REFERER]);
     }
 
     public function index() {
