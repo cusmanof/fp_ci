@@ -36,6 +36,13 @@
                 . '&body=Please create an account for me.'
                 . ' I would like the ID: ------%0A'
                 . 'and email address: ------', 'Frank');
+        ?>
+        OR 
+        <?php
+        echo mailto('erik.sauter@thalesgroup.com.au?subject=Free Park account request.'
+                . '&body=Please create an account for me.'
+                . ' I would like the ID: ------%0A'
+                . 'and email address: ------', 'Erik');
         ?> 
 
     </p>

@@ -4,7 +4,7 @@ echo '<p>';
 if ($this->ion_auth->is_admin()) {
     echo ' <a href="' . site_url("auth") . '" class="btn btn-primary btn-md" role="button">Admin</a>';
 } else {
-    echo ' <a href="' . site_url("auth/change_password") . '" class="btn btn-primary btn-md" role="button">Change password</a>';
+    echo ' <a href="' . site_url("auth/edit_user") . '" class="btn btn-primary btn-md" role="button">Change details</a>';
 }
 echo ' <a href="' . site_url("") . '" class="btn btn-primary btn-md" role="button">Show calendar</a>';
 echo ' <a href="' . site_url("calendar/reset") . '" onClick="return doconfirm();" class="btn btn-primary btn-md" role="button">Reset</a>';

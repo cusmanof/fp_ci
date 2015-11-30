@@ -677,7 +677,21 @@ class Ion_auth_model extends CI_Model {
         }
         return '';
     }
+  public function get_phone($username = '') {
+        $this->trigger_events('get_phone');
 
+        if (!empty($username)) {
+            $this->trigger_events('extra_where');
+
+            $res = $this->db->where('username', $username)->get($this->tables['users']);
+            $row = $res->row();
+            if (!empty($row)) {
+                return $row->phone;
+            }
+        }
+        return '';
+    }
+    
     /**
      * Checks email
      *

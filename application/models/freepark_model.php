@@ -167,14 +167,16 @@ class Freepark_model extends CI_Model {
         $q = "SELECT userId, parkId, free_date, owner FROM freedays_tbl WHERE userId = '" . $user . "' ORDER BY  free_date";
         $query = $this->db->query($q);
         $h = array(
-            "0" => 'User',
+            "0" => 'Owner',
             "1" => 'Bay',
             "2" => 'Date',
-            "3" => 'Owner'
-        );
+            "3" => 'Phone',
+            "4" => 'User'
+         );
         array_push($res, $h);
         foreach ($query->result() as $row) {
             $oo = $row->owner;
+            $ph = $this->ion_auth->getPhone($oo);
             if (!empty($oo)) {
                 $email = $this->ion_auth->getEmail($oo);
                 if (!empty($email)) {
@@ -186,7 +188,8 @@ class Freepark_model extends CI_Model {
                 "0" => $row->userId,
                 "1" => $row->parkId,
                 "2" => $row->free_date,
-                "3" => $oo
+                "3" => $ph,
+                "4" => $oo
             );
             array_push($res, $r);
         }
@@ -204,11 +207,13 @@ class Freepark_model extends CI_Model {
             "0" => 'Owner',
             "1" => 'Bay',
             "2" => 'Date',
-            "3" => 'User'
-        );
+            "3" => 'Phone',
+            "4" => 'User'
+         );
         array_push($res, $h);
         foreach ($query->result() as $row) {
             $oo = $row->userId;
+            $ph = $this->ion_auth->getPhone($oo);
             if (!empty($oo)) {
                 $email = $this->ion_auth->getEmail($oo);
                 if (!empty($email)) {
@@ -220,7 +225,8 @@ class Freepark_model extends CI_Model {
                 "0" => $row->owner,
                 "1" => $row->parkId,
                 "2" => $row->free_date,
-                "3" => $oo
+                "3" => $ph,
+                "4" => $oo   
             );
             array_push($res, $r);
         }

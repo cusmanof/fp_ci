@@ -499,8 +499,11 @@ class Auth extends CI_Controller {
     }
 
 	// edit a user
-	function edit_user($id)
+	function edit_user($id="")
 	{
+            if (empty($id)) {
+                $id = $this->ion_auth->get_user_id();
+            }
 		$this->data['title'] = "Edit User";
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))

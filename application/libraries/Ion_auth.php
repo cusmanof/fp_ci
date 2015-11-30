@@ -108,7 +108,10 @@ class Ion_auth {
     public function getEmail($owner) {
         return $this->ion_auth_model->get_email($owner);
     }
-
+    
+    public function getPhone($owner) {
+        return $this->ion_auth_model->get_phone($owner);
+    }
     /**
      * __get
      *
