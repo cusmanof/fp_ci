@@ -45,13 +45,7 @@ class Freepark_model extends CI_Model {
             } else if ($user == $row['userId']) {
                 if (!empty($row['owner'])) {
                     $res = 'park in <span style="color:#0000DD">' . $row['parkId'] . '</span><BR>';
-                    $email = $this->ion_auth->getEmail($row['owner']);
-//                    if (!empty($email)) {
-//                        $res = $res . mailto($email . '?subject= Re: parking bay: '
-//                                        . $row['parkId'] . ' on ' . $row['free_date'], $row['owner']);
-//                    } else {
                     $res = $res . $row['owner'];
-//                    }
                 } else {
                     $res = '<span style="color:#D2691E">Requested</span>';
                 }
@@ -108,7 +102,9 @@ class Freepark_model extends CI_Model {
             return;
         }
         //allocate if one avail
-        $q = "UPDATE freedays_tbl SET userId='" . $user . "' WHERE free_date = '" . $yymmdd . "' AND userId = '' LIMIT 1";
+        $q = "UPDATE freedays_tbl SET userId='" . $user 
+                . "' WHERE free_date = '" . $yymmdd 
+                . "' AND userId = '' ORDER BY parkId LIMIT 1";
         $this->db->query($q);
         if ($this->db->affected_rows() <> 0) {
             return;
@@ -172,7 +168,7 @@ class Freepark_model extends CI_Model {
             "2" => 'Date',
             "3" => 'Phone',
             "4" => 'User'
-         );
+        );
         array_push($res, $h);
         foreach ($query->result() as $row) {
             $oo = $row->owner;
@@ -209,7 +205,7 @@ class Freepark_model extends CI_Model {
             "2" => 'Date',
             "3" => 'Phone',
             "4" => 'User'
-         );
+        );
         array_push($res, $h);
         foreach ($query->result() as $row) {
             $oo = $row->userId;
@@ -226,7 +222,7 @@ class Freepark_model extends CI_Model {
                 "1" => $row->parkId,
                 "2" => $row->free_date,
                 "3" => $ph,
-                "4" => $oo   
+                "4" => $oo
             );
             array_push($res, $r);
         }
