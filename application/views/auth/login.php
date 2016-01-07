@@ -32,13 +32,13 @@
     <p>
         If you would like an account, send details to 
         <?php
-        echo mailto('frank.cusmano@thalesgroup.com.au?subject=Free Park account request.'
+        echo mailto('frank.cusmano@thalesgroup.com.au;erik.sauter@thalesgroup.com.au?subject=Free Park account request.'
                 . '&body=Please create an account for me'
                 . ', use email address: ------', 'Frank');
         ?>
         OR 
         <?php
-        echo mailto('erik.sauter@thalesgroup.com.au?subject=Free Park account request.'
+        echo mailto('erik.sauter@thalesgroup.com.au;frank.cusmano@thalesgroup.com.au?subject=Free Park account request.'
                 . '&body=Please create an account for me'
                 . ', use email address: ------', 'Erik');
         ?> 
