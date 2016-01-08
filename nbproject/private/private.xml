@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/system/core/CodeIgniter.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/models/Freepark_model.php</file>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/calendar_list.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/auth/login.php</file>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/templates/footer.php</file>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/templates/footer_free.php</file>
+            <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/free_list.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/controllers/Calendar.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/config/database.php</file>
             <file>file:/C:/adi_vsfz/dev_apps/wamp/apache2/htdocs/fp_ci/application/views/templates/footer_dates.php</file>

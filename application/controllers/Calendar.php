@@ -15,12 +15,10 @@ class Calendar extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->user = $this->ion_auth->get_user();
-        if (empty($this->user)) {
-            redirect('auth/login');
-            return;
+        if (!empty($this->user)) {
+            $this->bay = $this->ion_auth->get_bay();
+            $this->isOwner = !empty($this->bay);
         }
-        $this->bay = $this->ion_auth->get_bay();
-        $this->isOwner = !empty($this->bay);
     }
 
     private function T2($vv) {
@@ -73,12 +71,18 @@ class Calendar extends CI_Controller {
         if (empty($this->user)) {
             redirect('auth/login');
             return;
-    }
+        }
         $this->bay = $this->ion_auth->get_bay();
         $isOwner = !empty($this->bay);
         $this->Freepark_model->do_reset($this->user, $isOwner);
         redirect('Welcome');
-       }
+    }
+
+    public function brief() {
+
+       $data["table"] = $this->Freepark_model->do_list_free_days();
+        $this->load->view('free_list', $data);
+    }
 
     public function index() {
 

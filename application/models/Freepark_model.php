@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -102,8 +102,8 @@ class Freepark_model extends CI_Model {
             return;
         }
         //allocate if one avail
-        $q = "UPDATE freedays_tbl SET userId='" . $user 
-                . "' WHERE free_date = '" . $yymmdd 
+        $q = "UPDATE freedays_tbl SET userId='" . $user
+                . "' WHERE free_date = '" . $yymmdd
                 . "' AND userId = '' ORDER BY parkId LIMIT 1";
         $this->db->query($q);
         if ($this->db->affected_rows() <> 0) {
@@ -186,6 +186,27 @@ class Freepark_model extends CI_Model {
                 "2" => $row->free_date,
                 "3" => $ph,
                 "4" => $oo
+            );
+            array_push($res, $r);
+        }
+        return $this->table->generate($res);
+    }
+
+    function do_list_free_days() {
+        $res = array();
+        $tmpl = array('table_open' => '<table class="ftable">');
+        $this->load->library('table');
+        $this->table->set_template($tmpl);
+        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY  free_date LIMIT 50";
+        $query = $this->db->query($q);
+        $h = array(
+            "0" => 'Date',
+        );
+        array_push($res, $h);
+        foreach ($query->result() as $row) {
+           
+            $r = array(
+                "0" => $row->free_date,          
             );
             array_push($res, $r);
         }

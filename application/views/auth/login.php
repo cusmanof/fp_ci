@@ -29,6 +29,7 @@
 
     <p><?php echo form_submit('submit', lang('login_submit_btn')); ?></p>
     <?php echo form_close(); ?>
+   
     <p>
         If you would like an account, send details to 
         <?php
@@ -43,6 +44,9 @@
                 . ', use email address: ------', 'Erik');
         ?> 
 
+    </p>
+    <p>
+       <?php echo '<a href="' . site_url("calendar/brief") . '" class="btn btn-default btn-xs" role="button">View free days</a>' ?>
     </p>
 </span>
 
