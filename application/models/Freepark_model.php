@@ -197,7 +197,7 @@ class Freepark_model extends CI_Model {
         $tmpl = array('table_open' => '<table class="ftable">');
         $this->load->library('table');
         $this->table->set_template($tmpl);
-        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY  free_date LIMIT 50";
+        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY free_date LIMIT 50";
         $query = $this->db->query($q);
         $h = array(
             "0" => 'Date',
@@ -212,7 +212,18 @@ class Freepark_model extends CI_Model {
         }
         return $this->table->generate($res);
     }
-
+    
+    function get_free_days() {
+        $res = array();
+        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY free_date LIMIT 50";
+        $query = $this->db->query($q);
+        
+       foreach ($query->result() as $row) {
+         array_push($res, $row->free_date);  
+       }
+        return $res;
+    }
+    
     function do_list_owner($user) {
         $res = array();
         $tmpl = array('table_open' => '<table class="ftable">');

@@ -79,9 +79,7 @@ class Calendar extends CI_Controller {
     }
 
     public function brief() {
-
-       $data["table"] = $this->Freepark_model->do_list_free_days();
-        $this->load->view('free_list', $data);
+        redirect('Year');
     }
 
     public function index() {
