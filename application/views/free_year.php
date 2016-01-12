@@ -42,25 +42,33 @@
                 table {
                     border:0; 
                     text-align: center;
-                    font-size:36px; 
+                    font-size:32px; 
                     font-family:Verdana;
                 }
                 p {
-                    font-size: 48px;
+                    font-size: 40px;
                 }
                 h1 {
                     font-size: 56px;  
                 }
+                .btn-md {
+                    padding:2px 4px;
+                    font-size:90%;
+                    line-height: 2;
+                }
                 .free {
+                    font-size:32px; 
                     font-family:Verdana;
                     background:#00ff00;
                 }
-                .day {          
+                .day {
+                    font-size:32px; 
                     text-align: center;
                     font-weight: bold;
                     color:#666666;
                 }
-                .dayW {          
+                .dayW {   
+                    font-size:32px; 
                     text-align: center;
                     font-weight: bold;
                     color:#0000cc;
@@ -69,7 +77,8 @@
                     text-align: center;
                     color:#666666;
                 }
-                .dayWd {          
+                .dayWd {  
+                    font-size:32px; 
                     text-align: center;
                     color:#0000cc;
                 }
@@ -145,4 +154,4 @@
             ?> 
             <BR>
             <?php $this->load->view('templates/footer_free'); ?> 
-    </body>
+            </body>

@@ -46,7 +46,7 @@
 
     </p>
     <p>
-       <?php echo '<a href="' . site_url("calendar/brief") . '" class="btn btn-default btn-xs" role="button">View free days</a>' ?>
+       <?php echo '<a href="' . site_url("calendar/brief") . '" class="btn btn-default btn-md" role="button">View free days</a>' ?>
     </p>
 </span>
 
