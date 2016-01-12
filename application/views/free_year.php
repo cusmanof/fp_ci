@@ -7,7 +7,7 @@
             table {
                 border:0; 
                 text-align: center;
-                font-size:8pt; 
+                font-size:7pt; 
                 font-family:Verdana;
             }
             th {align: center; 
@@ -16,25 +16,29 @@
                 color:#666699;
             }
             .free {
-                font-size:8pt;
                 font-family:Verdana;
+                text-align: center;
                 background:#00ff00;
             }
-            .day {          
+            .day { 
+                font-family:Verdana;
                 text-align: center;
                 font-weight: bold;
                 color:#666666;
             }
-            .dayW {          
+            .dayW {
+                font-family:Verdana;
                 text-align: center;
                 font-weight: bold;
                 color:#0000cc;
             }
-            .dayd {          
+            .dayd { 
+                font-family:Verdana;
                 text-align: center;
                 color:#666666;
             }
-            .dayWd {          
+            .dayWd { 
+                font-family:Verdana;
                 text-align: center;
                 color:#0000cc;
             }
@@ -44,6 +48,11 @@
                     text-align: center;
                     font-size:32px; 
                     font-family:Verdana;
+                }
+                th {align: center; 
+                    font-size:32px;
+                    font-family:Arial;
+                    color:#666699;
                 }
                 p {
                     font-size: 40px;
@@ -73,7 +82,8 @@
                     font-weight: bold;
                     color:#0000cc;
                 }
-                .dayd {          
+                .dayd { 
+                    font-size:32px; 
                     text-align: center;
                     color:#666666;
                 }
@@ -96,28 +106,27 @@
             $dd = date('d');
             $monate = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
 
-            echo '<table border=0 width=700>';
+            echo '<table>';
 
-            for ($reihe = 1; $reihe <= 3; $reihe++) {
+            for ($reihe = 0; $reihe < 6; $reihe++) {
                 echo '<tr>';
-                for ($spalte = 1; $spalte <= 4; $spalte++) {
-                    $this_month = ($reihe - 1) * 4 + $spalte;
+                for ($spalte = 0; $spalte < 2; $spalte++) {
+                    $this_month = (($reihe) * 2 + $spalte) + 1;
                     $day_of_week = date('w', mktime(0, 0, 0, $this_month, 1, $yy));
                     $days_in_month = date('t', mktime(0, 0, 0, $this_month, 1, $yy));
-                    if ($day_of_week == 0)
-                        $day_of_week = 7;
                     echo '<td width="25%" valign=top>';
                     echo '<table>';
-                    echo '<th colspan=7 ">' . $monate[$this_month - 1] . '</th>';
-                    echo '<tr><td class="day">Mo</td>';
+                    echo '<th colspan=7  align=center>' . $monate[$this_month - 1] . '</th>';
+                    echo '<tr>';
+                    echo '<td class="dayW">Su</td>';
+                    echo '<td class="day">Mo</td>';
                     echo '<td class="day">Tu</td>';
                     echo '<td class="day">We</td>';
                     echo '<td class="day">Th</td>';
                     echo '<td class="day">Fr</td>';
                     echo '<td class="dayW">Sa</td>';
-                    echo '<td class="dayW">Su</td>';
                     echo '<tr><br>';
-                    $i = 1;
+                    $i = 0;
                     while ($i < $day_of_week) {
                         echo '<td> </td>';
                         $i++;
@@ -125,18 +134,16 @@
                     $i = 1;
                     while ($i <= $days_in_month) {
                         $ddmmyy = date('Y-m-d', mktime(0, 0, 0, $this_month, $i, $yy));
-                        $rest = ($i + $day_of_week - 1) % 7;
+                        $rest = ($i + $day_of_week) % 7;
                         if (in_array($ddmmyy, $free_days)) {
-                            echo '<td class="free" align=center>';
+                            echo '<td class="free" >';
                         } else {
-                            echo '<td style="font-size:8pt; font-family:Verdana" align=center>';
+                            echo '<td  class="dayd" >';
                         }
-                        if (($i == $dd) && ($this_month == $mm)) {
-                            echo '<span class="dayd">' . $i . '</span>';
-                        } else if ($rest == 6 || $rest == 0) {
+                       if ($rest == 0 || $rest == 1) {
                             echo '<span class="dayWd">' . $i . '</span>';
                         } else {
-                            echo $i;
+                            echo '<span class="dayd">' . $i . '</span>';
                         }
                         echo "</td>\n";
                         if ($rest == 0)
