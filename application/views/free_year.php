@@ -7,7 +7,7 @@
             table {
                 border:0; 
                 text-align: center;
-                font-size:7pt; 
+                font-size:9pt; 
                 font-family:Verdana;
             }
             th {align: center; 
@@ -114,9 +114,9 @@
                     $this_month = (($reihe) * 2 + $spalte) + 1;
                     $day_of_week = date('w', mktime(0, 0, 0, $this_month, 1, $yy));
                     $days_in_month = date('t', mktime(0, 0, 0, $this_month, 1, $yy));
-                    echo '<td width="25%" valign=top>';
-                    echo '<table>';
-                    echo '<th colspan=7  align=center>' . $monate[$this_month - 1] . '</th>';
+                    echo '<td width="40%" valign=top>';
+                    echo '<table align="center">';
+                    echo '<th colspan="7" >' . $monate[$this_month - 1] . '</th>';
                     echo '<tr>';
                     echo '<td class="dayW">Su</td>';
                     echo '<td class="day">Mo</td>';
@@ -140,7 +140,7 @@
                         } else {
                             echo '<td  class="dayd" >';
                         }
-                       if ($rest == 0 || $rest == 1) {
+                        if ($rest == 0 || $rest == 1) {
                             echo '<span class="dayWd">' . $i . '</span>';
                         } else {
                             echo '<span class="dayd">' . $i . '</span>';
