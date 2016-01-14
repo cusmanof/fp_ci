@@ -96,6 +96,9 @@
                     font-size:56px;
                     line-height: 1.2;
                 }
+                a {
+                    font-size: 40px;
+                }
             }
         </style>
     </head>
