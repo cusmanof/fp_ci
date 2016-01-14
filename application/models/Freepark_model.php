@@ -95,8 +95,8 @@ class Freepark_model extends CI_Model {
         }
         $q = "SELECT * FROM freedays_tbl WHERE userId = '" . $user . "'";
         $query = $this->db->query($q);
-        if ($query->num_rows() >= 7) {
-            $message = " Sorry, you cannot reserve more than 7 bays in advance." .
+        if ($query->num_rows() >= 10) {
+            $message = " Sorry, you cannot reserve more than 10 bays in advance." .
                     "Buy Frank a beer and he might increase your limit.";
             $this->session->set_flashdata('error', $message);
             return;
@@ -150,7 +150,7 @@ class Freepark_model extends CI_Model {
         $tmpl = array('table_open' => '<table class="ftable">');
         $this->load->library('table');
         $this->table->set_template($tmpl);
-        $q = "SELECT userId, parkId, free_date, owner FROM freedays_tbl WHERE userId<>'' ORDER BY userId, free_date ";
+        $q = "SELECT userId, parkId, free_date, owner FROM freedays_tbl WHERE userId<>'' ORDER BY free_date ";
         $query = $this->db->query($q);
         return $this->table->generate($query);
     }
@@ -197,7 +197,7 @@ class Freepark_model extends CI_Model {
         $tmpl = array('table_open' => '<table class="ftable">');
         $this->load->library('table');
         $this->table->set_template($tmpl);
-        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY free_date LIMIT 50";
+        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY free_date";
         $query = $this->db->query($q);
         $h = array(
             "0" => 'Date',
@@ -215,7 +215,7 @@ class Freepark_model extends CI_Model {
     
     function get_free_days() {
         $res = array();
-        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY free_date LIMIT 50";
+        $q = "SELECT DISTINCT free_date FROM freedays_tbl WHERE userId = '' ORDER BY free_date ";
         $query = $this->db->query($q);
         
        foreach ($query->result() as $row) {
