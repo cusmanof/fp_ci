@@ -3,6 +3,9 @@
     <head>
         <title>Free days</title>
         <meta http-equiv='Content-type' content='text/html; charset=UTF-8' >
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <style type="text/css"> 
             table {
                 border:0; 
@@ -60,11 +63,7 @@
                 h1 {
                     font-size: 56px;  
                 }
-                .btn-md {
-                    padding:2px 4px;
-                    font-size:90%;
-                    line-height: 2;
-                }
+
                 .free {
                     font-size:32px; 
                     font-family:Verdana;
@@ -91,6 +90,11 @@
                     font-size:32px; 
                     text-align: center;
                     color:#0000cc;
+                }
+                .btn-md {
+                    padding:4px 9px;
+                    font-size:56px;
+                    line-height: 1.2;
                 }
             }
         </style>
