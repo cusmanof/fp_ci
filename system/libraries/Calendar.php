@@ -284,9 +284,10 @@ class CI_Calendar {
 
 			for ($i = 0; $i < 7; $i++)
 			{
-				if ($day > 0 && $day <= $total_days)
+                     
+				if ($day > 0 && $day <= $total_days )
 				{
-					$out .= ($is_current_month === TRUE && $day == $cur_day) ? $this->replacements['cal_cell_start_today'] : $this->replacements['cal_cell_start'];
+					$out .= ($i==0 || $i == 6) ? $this->replacements['cal_cell_start_grey'] : $this->replacements['cal_cell_start'];
 
 					if (isset($data[$day]))
 					{
@@ -484,7 +485,7 @@ class CI_Calendar {
 			'week_row_end'				=> '</tr>',
 			'cal_row_start'				=> '<tr>',
 			'cal_cell_start'			=> '<td>',
-			'cal_cell_start_today'		=> '<td>',
+			'cal_cell_start_grey'		=> '<td style="background: #EfEfEf;">',
 			'cal_cell_start_other'		=> '<td style="color: #666;">',
 			'cal_cell_content'			=> '<a href="{content}">{day}</a>',
 			'cal_cell_content_today'	=> '<a href="{content}"><strong>{day}</strong></a>',
