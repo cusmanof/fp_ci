@@ -105,7 +105,7 @@
     <body>
         <?php $this->load->view('templates/header'); ?> 
         <div align="center">
-            <h1>Free days for <?php echo $year ?> </h1>
+            <h1>Free days from <?php echo  date('M') ." ". date('Y') ?> </h1>
 
             <?php
             $mm = date('n');
@@ -115,10 +115,10 @@
 
             echo '<table>';
 
-            for ($reihe = 0; $reihe < 6; $reihe++) {
+            for ($reihe = 0; $reihe < 4; $reihe++) {
                 echo '<tr>';
                 for ($spalte = 0; $spalte < 2; $spalte++) {
-                    $this_month = (($reihe) * 2 + $spalte) + 1;
+                    $this_month = $mm;
                     $day_of_week = date('w', mktime(0, 0, 0, $this_month, 1, $yy));
                     $days_in_month = date('t', mktime(0, 0, 0, $this_month, 1, $yy));
                     echo '<td width="40%" valign=top>';
@@ -160,6 +160,11 @@
                     echo '</tr>';
                     echo '</table>';
                     echo '</td>';
+                    $mm = $mm +1;
+                    if ($mm > 12) {
+                        $yy = $yy +1;
+                        $mm = 1;
+                    }
                 }
                 echo '</tr>';
             }
