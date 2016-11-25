@@ -117,7 +117,7 @@
 
             for ($reihe = 0; $reihe < 4; $reihe++) {
                 echo '<tr>';
-                for ($spalte = 0; $spalte < 2; $spalte++) {
+                for ($ii = 0; $ii < 2; $ii++) {
                     $this_month = $mm;
                     $day_of_week = date('w', mktime(0, 0, 0, $this_month, 1, $yy));
                     $days_in_month = date('t', mktime(0, 0, 0, $this_month, 1, $yy));
@@ -160,9 +160,9 @@
                     echo '</tr>';
                     echo '</table>';
                     echo '</td>';
-                    $mm = $mm +1;
+                    $mm++;
                     if ($mm > 12) {
-                        $yy = $yy +1;
+                        $yy++;
                         $mm = 1;
                     }
                 }
