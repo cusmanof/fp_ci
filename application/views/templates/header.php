@@ -1,10 +1,16 @@
 
 <head>
     <title>Free Park</title>
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <meta http-equiv="refresh" content="600" />
+    <!-- Include Required Prerequisites -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <meta http-equiv="refresh" content="3000" />
+
     <style type="text/css">
         .panel-heading {
             text-align: center;
@@ -61,6 +67,16 @@
         div.today {
             background: #E9EFF7;
             height: 100%;
+        }
+        .hideme
+        {
+            display:none;
+            visibility:hidden;
+        }
+        .showme
+        {
+            display:inline;
+            visibility:visible;
         }
         @media only screen and (max-device-width: 480px) {
             p {
@@ -155,6 +171,16 @@
                 background: #E9EFF7;
                 height: 100%;
             }
+            .hideme
+            {
+                display:none;
+                visibility:hidden;
+            }
+            .showme
+            {
+                display:inline;
+                visibility:visible;
+            }
         }
 
     </style>
@@ -162,7 +188,7 @@
     <script type="text/javascript">
         function doconfirm()
         {
-            job = confirm("Are you sure to remove your entries?");
+            job = confirm("Are you sure you want to remove your entries?");
             if (job != true)
             {
                 return false;
@@ -176,7 +202,7 @@
                     var m = node.getAttribute('m');
                     var y = node.getAttribute('y');
                     var xhttp = new XMLHttpRequest();
-                    xhttp.open("GET", "update/" + m + "/" + d, false);
+                    xhttp.open("GET", "single/" + y + "/" + m + "/" + d, false);
                     xhttp.send();
                     window.location.reload();
                 }
@@ -194,11 +220,16 @@
                 }
             }
         }
+
         window.onload = afterTableLoad;
+
     </script>
 
 </head>
 <body>
     <div class="panel panel-default">
         <div class="panel-heading">Free Park brought to you by Frank Cusmano at his own expense.</div>
-    </div>    
+    </div>  
+    <div align="center" >
+        <input id="drp" type="text" name="daterangepicker" class="hideme"/>
+    </div>

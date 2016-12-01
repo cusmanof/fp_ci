@@ -8,6 +8,10 @@ class Calendar extends CI_Controller {
     var $yy;
     var $mm;
     var $dd;
+    var $ryy;
+    var $rmm;
+    var $rdd;
+    var $range;
     var $user;
     var $bay;
     var $isOwner;
@@ -59,12 +63,30 @@ class Calendar extends CI_Controller {
         $this->load->view('calendar_list', $data);
     }
 
-    public function do_owner() {
+    public function do_owner1() {
         $result = $this->Freepark_model->get_entries_for_owner($this->user, $this->partDate());
         if (array_key_exists($this->dd, $result)) {
             $this->Freepark_model->do_release_for_owner($this->user, $this->fullDate());
         } else {
             $this->Freepark_model->do_free_for_owner($this->user, $this->fullDate(), $this->bay);
+        }
+    }
+
+    public function do_owner() {
+        $this->do_owner1();
+        if ($this->range) {
+            $f = 'Y-m-d';
+            $s = $this->yy . "-" . $this->mm . "-" . $this->dd;
+            $e = $this->ryy . "-" . $this->rmm . "-" . $this->rdd;
+            $endDate = date_create_from_format($f, $e);
+            $workDate = date_create_from_format($f, $s);
+            while ($workDate < $endDate) {
+                $workDate->modify('+1 day');
+                $this->yy = $workDate->format('Y');
+                $this->mm = $workDate->format('m');
+                $this->dd = $workDate->format('d');
+                $this->do_owner1();
+            }
         }
     }
 
@@ -86,12 +108,17 @@ class Calendar extends CI_Controller {
 
     public function index() {
 
-        if ($this->uri->segment(5)) {
+        if ($this->uri->total_segments() > 5) {
             //we have an update
-            $this->yy = $this->uri->segment(3);
-            $this->mm = $this->uri->segment(5);
-            $this->dd = $this->uri->segment(6);
-
+            $this->yy = $this->uri->segment(5);
+            $this->mm = $this->uri->segment(6);
+            $this->dd = $this->uri->segment(7);
+            $this->range = ($this->uri->segment(4) == "range" );
+            if ($this->range) {
+                $this->ryy = $this->uri->segment(8);
+                $this->rmm = $this->uri->segment(9);
+                $this->rdd = $this->uri->segment(10);
+            }
             if ($this->isOwner) {
                 $this->do_owner();
             } else {

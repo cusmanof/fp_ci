@@ -23,6 +23,7 @@
     }
     ?>
     <BR>
+    
     <?php $this->load->view('templates/footer_list'); ?> 
 
 </body>
